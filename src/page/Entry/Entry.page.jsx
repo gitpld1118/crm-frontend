@@ -33,7 +33,6 @@ export const Entry = () => {
 
     console.log(email, password);
   };
-  
   const handleOnResetSubmit = (e) => {
     e.preventDefault();
 
