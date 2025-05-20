@@ -1,8 +1,10 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Row, Table } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export const TicketTable = ({ tickets }) => {
+  console.log("Tickets data:", tickets);
   return (
     <Table striped bordered hover>
       <thead>
@@ -18,14 +20,18 @@ export const TicketTable = ({ tickets }) => {
           tickets.map((row) => (
             <tr key={row.id}>
               <td>{row.id}</td>
-              <td>{row.subject}</td>
+              <td>
+                <Link to={`/ticket/${row.id}`}>{row.subject}</Link>
+              </td>
               <td>{row.status}</td>
               <td>{row.addedAt}</td>
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan={4} className="text-center">No ticket show</td>
+            <td colSpan={4} className="text-center">
+              No ticket show
+            </td>
           </tr>
         )}
       </tbody>
@@ -35,5 +41,4 @@ export const TicketTable = ({ tickets }) => {
 
 TicketTable.propTypes = {
   tickets: PropTypes.array.isRequired,
-
-}
+};

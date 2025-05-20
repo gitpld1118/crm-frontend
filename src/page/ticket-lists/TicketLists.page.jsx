@@ -4,10 +4,11 @@ import { PageBreadcrumb } from "../../components/Breadcrumb/Breadcrumb.comp";
 import { SearchForm } from "../../components/search-form/SearchForm.comp";
 import { TicketTable } from "../../components/ticket-table/TicketTable";
 import tickets from "../../assets/data/dummy-ticket.json";
+import { Link } from "react-router-dom";
 
 export const TicketLists = () => {
   const [str, setStr] = useState("");
-  const [dispTicket, setDispTicket] = useState([tickets]);
+  const [dispTicket, setDispTicket] = useState(tickets);
 
   useEffect(() => {}, [str, dispTicket]);
 
@@ -21,7 +22,6 @@ export const TicketLists = () => {
     const displayTickets = tickets.filter((row) =>
       row.subject.toLowerCase().includes(sttr.toLowerCase())
     );
-
     setDispTicket(displayTickets);
   };
 
@@ -34,7 +34,9 @@ export const TicketLists = () => {
       </Row>
       <Row className="mt-4">
         <Col>
-          <Button variant="info">Add New Ticket</Button>
+          <Link to="/add-ticket">
+            <Button variant="info">Add New Ticket</Button>
+          </Link>
         </Col>
         <Col className="text-end">
           <SearchForm handleOnChange={handleOnChange} str={str} />

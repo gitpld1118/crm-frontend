@@ -4,19 +4,35 @@ import { PageBreadcrumb } from "../../components/Breadcrumb/Breadcrumb.comp";
 import tickets from "../../assets/data/dummy-ticket.json";
 import { MessageHistory } from "../../components/message-history/MessageHistory.comp";
 import { UpdateTicket } from "../../components/update-ticket/UpdateTicket.comp";
+import { useParams } from "react-router-dom";
 
-const ticket = tickets[0];
+// const ticket = tickets[0];
 export const Ticket = () => {
+  const { tId } = useParams();
+
   const [message, setMessage] = useState("");
-  useEffect(() => {}, [message]);
+  const [ticket, setTicket] = useState("");
+
+  // useEffect(() => {
+  //   for (let i = 0; i < tickets.length; i++) {
+  //     if (ticket[i].id == tId) {
+  //       setTicket(ticket[i]);
+  //       continue;
+  //     }
+  //   }
+  // }, [message, tId]);
+  useEffect(() => {
+    const foundTicket = tickets.find((t) => String(t.id) === String(tId));
+    setTicket(foundTicket || null);
+  }, [tId]);
 
   const handleOnChange = (e) => {
     setMessage(e.target.value);
   };
 
   const handleOnSubmit = () => {
-    alert("Form submited!")
-  }
+    alert("Form submited!");
+  };
 
   return (
     <Container className="mt-5">
@@ -44,10 +60,11 @@ export const Ticket = () => {
 
       <Row className="mt-4">
         <Col>
-          <UpdateTicket msg={message} 
-          handleOnChange={handleOnChange}
-          handleOnSubmit={handleOnSubmit}
-           />
+          <UpdateTicket
+            msg={message}
+            handleOnChange={handleOnChange}
+            handleOnSubmit={handleOnSubmit}
+          />
         </Col>
       </Row>
     </Container>
